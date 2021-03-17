@@ -1,17 +1,16 @@
-// import Image from "next/image";
+import Image from "next/image";
 import classes from "./hero.module.css";
 
 function Hero() {
   return (
     <section className={classes.hero}>
       <div className={classes.image}>
-        {/* <Image
+        <Image
           src="/images/site/max.png"
           alt="An image showing Max"
           width={300}
           height={300}
-        /> */}
-        no img yet
+        />
       </div>
       <h1>Hi, I'm CloudBop</h1>
       <p>
