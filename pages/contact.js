@@ -1,7 +1,7 @@
 import React from "react";
 
-function HomePage() {
+function ContactPage() {
   return <div></div>;
 }
 
-export default HomePage;
+export default ContactPage;
