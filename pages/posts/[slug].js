@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
+import Head from "next/head";
 import PostContent from "../../components/posts/post-detail/post-content";
 import { getPostsFiles, getPostData } from "../../lib/posts-util";
 function SinglePostPage(props) {
@@ -8,7 +9,15 @@ function SinglePostPage(props) {
     return <p>Loading...</p>;
   }
 
-  return <PostContent post={post} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>{props.post.title}</title>
+        <meta name="description" content={props.post.excerpt} />
+      </Head>
+      <PostContent post={post} />
+    </Fragment>
+  );
 }
 
 export async function getStaticProps(context) {
