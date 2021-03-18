@@ -1,5 +1,6 @@
+import { MongoClient } from "mongodb";
 // server side contact API
-function handler(req, res) {
+async function handler(req, res) {
   //
   if (req.method === "POST") {
     const { email, name, message } = req.body;
@@ -24,7 +25,30 @@ function handler(req, res) {
       message
     };
 
-    console.log(newMessage);
+    let client;
+
+    try {
+      client = await MongoClient.connect(
+        `mongodb+srv://${process.env.mongouser}:${process.env.mongopw}@cluster0.61wo8.mongodb.net/nextjs-blog?retryWrites=true&w=majority`
+      );
+    } catch (error) {
+      res.status(500).json({ message: "Could not connect to database." });
+      return;
+    }
+
+    const db = client.db();
+
+    try {
+      const result = await db.collection("messages").insertOne(newMessage);
+      newMessage.id = result.insertedId;
+    } catch (error) {
+      client.close();
+      res.status(500).json({ message: "Storing message failed!" });
+      // stop the function here!
+      return;
+    }
+
+    client.close();
 
     res
       .status(201)
