@@ -1,17 +1,16 @@
-import React from "react";
+import React, { Fragment } from "react";
 import FeaturedPosts from "../components/homepage/featured-posts";
 import Hero from "../components/homepage/hero";
-import Layout from "../components/layout/layout";
 
 import { getFeaturedPosts } from "../lib/posts-util";
 //
 function HomePage(props) {
   const { posts } = props;
   return (
-    <Layout>
+    <Fragment>
       <Hero />
       <FeaturedPosts posts={posts} />
-    </Layout>
+    </Fragment>
   );
 }
 
