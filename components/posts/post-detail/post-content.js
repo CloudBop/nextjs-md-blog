@@ -1,5 +1,7 @@
 import PostHeader from "./post-header";
 import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlight } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import classes from "./post-content.module.css";
 import Image from "next/image";
 function PostContent(props) {
@@ -28,7 +30,6 @@ function PostContent(props) {
       // if p has img as child
       if (node.children[0].type === "image") {
         const childImage = node.children[0];
-        console.log(`childImage.url`, childImage.url);
         return (
           <div className={classes.image}>
             <Image
@@ -43,6 +44,16 @@ function PostContent(props) {
       } else {
         return <p> {paragraph.children} </p>;
       }
+    },
+    code(code) {
+      const { language, value } = code;
+      return (
+        <SyntaxHighlight
+          style={atomDark}
+          language={language}
+          children={value}
+        />
+      );
     }
   };
 
